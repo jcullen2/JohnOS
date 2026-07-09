@@ -13,20 +13,20 @@ launchctl list | grep com.jc.os      # verify
 **Nothing is enabled until JC confirms at GATE 3** — until then, run producers by
 hand and inspect the queue.
 
-## The Daily
-| Job | Time | Command | Output |
+## The Daily — two Cowork tasks (not launchd)
+The review plane is **Claude rendering the queue as an interactive artifact**
+(`engine/producers/daily.md`). It is **not** a launchd job and **sends nothing**
+(standing-rule #0) — there is no email, no browser-open, no push.
+
+| Cowork task | Time | Runs | Surface |
 |---|---|---|---|
-| `com.jc.os.daily` | **7:00** | `render_daily.py --open --email …` | `/daily/<date>.{html,md}` (full) |
-| `com.jc.os.daily-pm` | **17:00** | `render_daily.py --since 07:00 --open --email …` | `/daily/<date>-pm.{html,md}` (delta) |
+| Daily (full) | **7:00** | `daily.md` runbook → `render_daily.py` | interactive artifact + `/daily/<date>.md` audit |
+| Daily (delta) | **17:00** | `daily.md` → `render_daily.py --since 07:00` | delta artifact + `/daily/<date>-pm.md` audit |
 
-The evening edition shows only items created/changed since 07:00 plus anything
-that crossed the urgency threshold (`/context/thresholds.md`). Both open in the
-browser and email JC's **own** address — the one sending carve-out (L2,
-`/context/autonomy.md`); the renderer emails no one else.
-
-**Email delivery** uses SMTP via env vars, read at run time (never committed):
-`SMTP_HOST`, `SMTP_PORT` (587), `SMTP_USER`, `SMTP_PASS`, `DAILY_FROM`. If
-`SMTP_HOST` is unset the render still succeeds and logs `[email skipped]`.
+The evening edition shows only items created/changed since 07:00 plus anything that
+crossed the urgency threshold (`/context/thresholds.md`). Use **Cowork's native task
+notifications** — nothing custom. `render_daily.py` writes the git-versioned
+markdown audit and refreshes `state/stats.json`; the artifact is the live surface.
 
 ## Producer batch window (4:00–6:45)
 Producers write queue items **before 6:45** so the 7:00 Daily sees them. One plist

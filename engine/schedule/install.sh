@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Install the JohnOS launchd jobs on JC's Mac. Idempotent — re-run after edits.
+# Install the OS producer launchd jobs on JC's Mac. Idempotent — re-run after edits.
+# (The Daily is a Cowork task, not launchd — see engine/producers/daily.md.)
 # Rewrites __OS_ROOT__ to this repo's absolute path and loads each plist.
 set -euo pipefail
 

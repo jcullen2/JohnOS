@@ -80,17 +80,33 @@ def test_qwrite_roundtrip():
 def test_render():
     with tempfile.TemporaryDirectory() as d:
         rd.render("2026-07-09", FIX, Path(d))
-        html = (Path(d) / "2026-07-09.html").read_text()
         md = (Path(d) / "2026-07-09.md").read_text()
-    check(html.index("DECIDE") < html.index("APPROVE") < html.index("KNOW")
-          < html.index("RAN"), "HTML section order DECIDE→APPROVE→KNOW→RAN")
-    check("<pre>Appreciate" in html, "APPROVE staged action rendered verbatim")
-    check(md.startswith("# The Daily"), "markdown fallback produced")
+    check(md.index("DECIDE") < md.index("APPROVE") < md.index("KNOW")
+          < md.index("RAN"), "section order DECIDE→APPROVE→KNOW→RAN")
+    check("Appreciate" in md, "APPROVE staged action rendered verbatim")
+    check(md.startswith("# The Daily"), "markdown audit produced")
+    # consequence line only on DECIDE/APPROVE, never KNOW/RAN
+    know = md[md.index("## KNOW"):]
+    check("consequence if ignored" not in know, "consequence suppressed on KNOW/RAN")
+    check("<html" not in md and "<pre>" not in md, "no HTML emitted (md only)")
+
+
+def test_no_send_surface():
+    src = (HERE / "render_daily.py").read_text()
+    check("smtplib" not in src and "webbrowser" not in src and "--email" not in src,
+          "renderer has no send/email/open surface (standing-rule #0)")
+
+
+def test_stats():
+    import stats
+    s = stats.build()
+    check("decide_open" in s["queue"] and "thesis_counters" in s,
+          "stats.json has KPI fields")
 
 
 if __name__ == "__main__":
     for fn in [test_fixtures_valid, test_ranking, test_validator_catches_errors,
-               test_qwrite_roundtrip, test_render]:
+               test_qwrite_roundtrip, test_render, test_no_send_surface, test_stats]:
         fn()
     print(f"\n{_n[0]} checks, {_n[1]} failed")
     sys.exit(1 if _n[1] else 0)

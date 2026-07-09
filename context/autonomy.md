@@ -25,13 +25,14 @@ in RAN → **L3** act silently.
 | learn     | all                            | L0    | —    |
 | leisure   | all                            | L0    | —    |
 | retro     | staged change-list             | L1    | L1   |
-| daily     | email to JC's own address      | L2    | L2   |
+| daily     | render queue as artifact       | L0    | L0   |
 
 ## Permanent caps (🔒 — never promotable)
 
-- Outbound **sending of any communication** → L1 max. (The one exception is the
-  Daily delivered to JC's **own** address — an explicit L2 carve-out for the
-  `daily` renderer only; it may email no one else.)
+- **The system sends nothing, ever, at any level** (standing-rule #0). There is no
+  send action in this table and no level that grants one — not email, not
+  send-to-self, not any channel. Drafts stage only; staging is not sending. The
+  review plane is Claude rendering the queue, never a push.
 - Anything **touching money** → L0. No trades, no transfers, ever, at any level.
-- **Network / LP outreach** → L1 max. Outreach never automates.
+- **Network / LP outreach** → L1 max, staged only. Outreach never automates.
 - **CRM destructive edits** → L1 max.

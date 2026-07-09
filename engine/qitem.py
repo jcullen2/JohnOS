@@ -19,7 +19,9 @@ STATUSES = {"open", "resolved", "expired"}
 LEVELS = {"L0", "L1", "L2", "L3"}
 SEVERITY = {"high": 3, "medium": 2, "low": 1}
 
-REQUIRED = ("producer", "type", "title", "consequence_if_ignored",
+# consequence_if_ignored is required only for DECIDE/APPROVE (it drives ranking /
+# urgency); it is meaningless on KNOW/RAN and suppressed from their display.
+REQUIRED = ("producer", "type", "title",
             "deadline", "autonomy_level_of_action", "status")
 BODY_HEADS = ("What happened", "What I did about it", "Recommendation",
               "What would change my recommendation", "What I need from you")
@@ -146,8 +148,9 @@ def validate(item: Item):
         errs.append(f"deadline '{item.deadline}' is not YYYY-MM-DD or null")
     if "severity" in m and item.severity not in SEVERITY:
         errs.append(f"severity '{m.get('severity')}' not in {sorted(SEVERITY)}")
-    if not str(m.get("consequence_if_ignored") or "").strip():
-        errs.append("consequence_if_ignored is empty (required; drives ranking)")
+    if item.type in ("DECIDE", "APPROVE") and \
+            not str(m.get("consequence_if_ignored") or "").strip():
+        errs.append("consequence_if_ignored required for DECIDE/APPROVE (drives ranking)")
 
     if item.type == "DECIDE":
         if not item.section("Recommendation"):

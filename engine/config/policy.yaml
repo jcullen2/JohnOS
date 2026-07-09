@@ -5,19 +5,17 @@ autonomy_level: L0
 writes: [KNOW]                             # KNOW only, capped per ring
 triage_model: claude-haiku-4-5
 
+cap: 4                                     # HARD: at most 4 KNOW items total, BEST-OF across rings
 # Three rings. Cross-spectrum sources are FORCED in config so no ring drifts to one side.
 rings:
   civic:                                   # Ring 1 — Detroit / Michigan
-    cap: 3
     topics: [Detroit city government, Lansing/state legislature, economic development,
-             major local institutions and projects (Gilbertville, District Detroit, universities)]
+             major local institutions and projects (District Detroit, universities)]
   thesis_policy:                           # Ring 2 — national policy touching active theses
-    cap: 3
     topics: [defense appropriations, reshoring/tariffs/industrial policy, energy,
              immigration incl. EB-3]
     signal_state: state/theses.json        # bump counters when a policy item is thesis evidence
   national_politics:                       # Ring 3 — cross-spectrum, forced
-    cap: 2
     frame: "what happened + why each side cares"
     forced_sources:
       left: [The American Prospect, Mother Jones, Vox]
@@ -25,6 +23,7 @@ rings:
       right: [National Review, The Dispatch, Wall Street Journal opinion]
 
 rules:
-  - KNOW only. Capped per ring; overflow held.
+  - KNOW only. HARD cap 4 total, chosen best-of across the three rings (aim for
+    coverage — don't starve a ring). Overflow collapses behind an expander.
   - Ring 3 every item MUST carry both "why the left cares" and "why the right cares."
   - Never editorialize; report positions, attribute them.

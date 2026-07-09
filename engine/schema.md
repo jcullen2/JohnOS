@@ -16,7 +16,7 @@ One markdown file per open decision request:
 | `producer`                | yes      | inbound, intake, sourcing, news, policy, thesis, tasks, network, finance, sports, learn, leisure, retro |
 | `type`                    | yes      | DECIDE, APPROVE, KNOW, RAN                                  |
 | `title`                   | yes      | one line                                                   |
-| `consequence_if_ignored`  | yes      | one line — drives DECIDE ranking                           |
+| `consequence_if_ignored`  | DECIDE/APPROVE only | one line — drives ranking/urgency; omit on KNOW/RAN (suppressed there) |
 | `deadline`                | yes      | `YYYY-MM-DD` or `null`                                     |
 | `autonomy_level_of_action`| yes      | L0–L3                                                       |
 | `status`                  | yes      | open, resolved, expired                                    |

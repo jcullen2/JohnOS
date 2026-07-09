@@ -51,7 +51,13 @@ Then: `python3 engine/validate.py queue/*.md` (must be 0 errors) and commit
 does the rest. If a split fails, write what you have and note the gap — one split
 failing never blocks the Daily.
 
+## Calendar rule (standing-rule #4)
+No staged draft may propose a specific time or date without first checking Google
+Calendar via MCP (`list_events` over the window). Note it verbatim in the item:
+*"calendar checked, free"* or *"calendar checked, conflict → proposed X."* No
+calendar access → propose no specific time; ask JC.
+
 ## Hard stops
-Sending, archiving, labeling, trashing, marking spam, unsubscribing — **none of
-these, ever, at any level.** Drafts stage only (standing-rule #1). LP threads:
+The system sends nothing, ever (standing-rule #0). Archiving, labeling, trashing,
+marking spam, unsubscribing — none, ever. Drafts stage only. Network/LP threads:
 stage, never automate (standing-rule #2).

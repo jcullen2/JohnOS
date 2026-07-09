@@ -22,11 +22,12 @@ theses_file: context/theses.md             # only surface thesis-aligned candida
 signal_state: state/theses.json            # bump counters via engine/signals.py
 
 caps:
-  nightly_signals: 8                       # KNOW signals per night, ranked, rest held
+  nightly_digest: 1                        # ONE grouped KNOW digest item listing the night's signals
   monday_decide: 5                         # ranked top-5 DECIDE, each with rec + change-condition
 
 rules:
   - Dedup against Affinity before any candidate is surfaced as net-new.
-  - Nightly = KNOW signals only. Monday 6:45 = the ranked top-5 DECIDE.
+  - Nightly = ONE grouped digest KNOW (all signals as a list inside it, net-new
+    flagged). No firehose of individual KNOW items. Monday 6:45 = ranked top-5 DECIDE.
   - Affinity adds stage as APPROVE (exact list/fields), never written live.
   - Bump the matching thesis counter for each real signal.
