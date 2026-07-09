@@ -104,9 +104,19 @@ def test_stats():
           "stats.json has KPI fields")
 
 
+def test_artifact():
+    import render_artifact as ra
+    h = ra.render("2026-07-09")
+    for sec in ("Your week", "Decide", "Sourcing", "Approve", "Know", "Ran"):
+        check(f">{sec}</h2>" in h, f"artifact has {sec} section")
+    check("'MORE'" in h, "sourcing feedback controls present")
+    check("smtplib" not in h and "mailto" not in h, "artifact has no send surface")
+
+
 if __name__ == "__main__":
     for fn in [test_fixtures_valid, test_ranking, test_validator_catches_errors,
-               test_qwrite_roundtrip, test_render, test_no_send_surface, test_stats]:
+               test_qwrite_roundtrip, test_render, test_no_send_surface, test_stats,
+               test_artifact]:
         fn()
     print(f"\n{_n[0]} checks, {_n[1]} failed")
     sys.exit(1 if _n[1] else 0)

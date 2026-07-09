@@ -4,7 +4,8 @@ wins over code until amended by the Friday retro.*
 
 ## Before any substantial work
 1. Read `/context` (identity, priorities, people, theses, autonomy, standing-rules,
-   thresholds) and `/lessons` (hard-won tool knowledge — do not relearn it).
+   thresholds, **voice**, **feedback-loops**) and `/lessons` (hard-won tool
+   knowledge — do not relearn it).
 2. Read the relevant section of `FOUNDING_SPEC.md`. Build against it; don't redesign it.
 
 ## Standing rules (full text in `/context/standing-rules.md` — non-negotiable)

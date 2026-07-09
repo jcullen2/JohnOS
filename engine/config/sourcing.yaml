@@ -21,13 +21,24 @@ dedup:
 theses_file: context/theses.md             # only surface thesis-aligned candidates
 signal_state: state/theses.json            # bump counters via engine/signals.py
 
+# Sourcing is a first-class surface — its own section in the Daily, not buried in KNOW.
+preferences: state/sourcing-prefs.json     # LEARNED taste; read every scan to rank + filter
 caps:
-  nightly_digest: 1                        # ONE grouped KNOW digest item listing the night's signals
+  nightly_candidates: 6                    # individual candidate cards, ranked by prefs, in the Sourcing section
   monday_decide: 5                         # ranked top-5 DECIDE, each with rec + change-condition
+
+feedback:                                  # JC's taps in the Daily write back here (living loop)
+  more: "raise thesis_weight + record the liked signature in sourcing-prefs.likes"
+  pass: "lower thesis_weight + record in sourcing-prefs.passes (suppress near-dupes)"
+  meet: "stage a warm-intro DECIDE next scan; record in sourcing-prefs.met"
+  watch: "keep on the radar; re-surface on a material change; record in sourcing-prefs.watching"
+
+card_fields: [thesis, affinity, round, lead]   # extra frontmatter shown on each candidate
 
 rules:
   - Dedup against Affinity before any candidate is surfaced as net-new.
-  - Nightly = ONE grouped digest KNOW (all signals as a list inside it, net-new
-    flagged). No firehose of individual KNOW items. Monday 6:45 = ranked top-5 DECIDE.
+  - Nightly = up to 6 individual candidate cards ranked by sourcing-prefs weights,
+    each with feedback controls. Monday 6:45 = ranked top-5 DECIDE.
+  - Apply JC's prior feedback: down-rank passed signatures, up-rank liked theses.
   - Affinity adds stage as APPROVE (exact list/fields), never written live.
   - Bump the matching thesis counter for each real signal.

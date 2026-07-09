@@ -16,9 +16,11 @@ James (Blueflite, drone logistics) proposed the morning of the 16th and offered 
 Drafted in your voice; staged, not sent:
 
 ```
-Hi James,
+Hey James,
 
-Morning of the 16th works — let's say 9:30. Easiest for me is Detroit; send an address that suits you and I'll be there.
+Great catching up at UTX. Thursday (7/16) works well for me — morning is best. Happy to come to Detroit, just send an address that works and I'll be there.
+
+Looking forward to it!
 
 Best,
 John

@@ -25,9 +25,10 @@ def slugify(s: str) -> str:
 
 def build(*, producer, type, title, consequence_if_ignored,
           autonomy_level_of_action, status="open", deadline=None, severity=None,
-          what_happened="", what_i_did="", recommendation="",
+          extra=None, what_happened="", what_i_did="", recommendation="",
           what_would_change="", what_i_need="") -> str:
-    """Return the full markdown text for a queue item (frontmatter + body)."""
+    """Return the full markdown text for a queue item (frontmatter + body).
+    `extra` is an optional dict of extra frontmatter (e.g. sourcing thesis/round)."""
     fm = [f"producer: {producer}", f"type: {type}",
           f"title: {title}",
           f"consequence_if_ignored: {consequence_if_ignored}",
@@ -36,6 +37,8 @@ def build(*, producer, type, title, consequence_if_ignored,
           f"status: {status}"]
     if severity:
         fm.append(f"severity: {severity}")
+    for k, v in (extra or {}).items():
+        fm.append(f"{k}: {v}")
     bodies = dict(zip(BODY_HEADS,
                       [what_happened, what_i_did, recommendation,
                        what_would_change, what_i_need]))

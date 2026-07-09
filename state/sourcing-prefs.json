@@ -1,0 +1,13 @@
+{
+  "schema": "sourcing-prefs@1",
+  "updated": "2026-07-09",
+  "note": "Living. Daily close-out applies MORE/PASS/MEET/WATCH rulings here; sourcing reads it next scan; retro audits it.",
+  "thesis_weights": {
+    "reindustrialization": 1.0, "maritime-autonomy": 1.0, "lunar-infrastructure": 1.0,
+    "robotics-data": 1.0, "defense-dual-use": 1.0, "nurse-workforce": 1.0
+  },
+  "likes": [],
+  "passes": [],
+  "watching": [],
+  "met": []
+}

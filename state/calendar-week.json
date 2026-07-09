@@ -1,0 +1,10 @@
+{
+  "week_of": "2026-07-06",
+  "tz": "America/New_York",
+  "refreshed": "2026-07-09",
+  "events": [
+    {"day": "2026-07-07", "start": "18:00", "end": "18:45", "title": "NGD Weekly Executive Meeting", "kind": "detroit"},
+    {"day": "2026-07-08", "start": "09:30", "end": "10:00", "title": "Meeting with Primary", "kind": "external"},
+    {"day": "2026-07-11", "start": "09:30", "end": "11:00", "title": "NGD In Person Meeting", "kind": "detroit"}
+  ]
+}

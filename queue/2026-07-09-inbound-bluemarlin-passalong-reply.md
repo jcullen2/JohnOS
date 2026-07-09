@@ -13,14 +13,14 @@ severity: low
 Alan, an associate at Blue Marlin (venture arm of a ~$1B PE fund; blue-collar workflow automation, supply chain/logistics, industrials, Seed–Series B) proposed a pass-along relationship given the thematic overlap with Assembly.
 
 ## What I did about it
-Drafted in your voice; staged, not sent:
+Drafted against /context/voice.md; staged, not sent:
 
 ```
 Hi Alan,
 
-Thanks for reaching out. You're right that we're circling the same themes — blue-collar automation and industrials are core to where we play, so a pass-along channel makes sense on both sides.
+Thanks for reaching out. It would be great to connect and compare notes — we spend a lot of time in the same areas, so there is likely a good fit on deal flow.
 
-Happy to find 20 minutes early next week — I'll send a couple of times. Good to connect.
+What does your availability look like next week? Happy to find time.
 
 Best,
 John

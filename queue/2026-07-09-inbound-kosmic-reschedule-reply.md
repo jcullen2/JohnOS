@@ -18,9 +18,9 @@ Drafted in your voice; staged, not sent:
 ```
 Hi Shaan,
 
-Apologies for the mix-up on my end — the 7/7 slot got away from me, and that's on me given how patient you've been.
+Thanks for your patience here, and apologies for the delay in circling back on scheduling.
 
-I'm still keen to dig into Kosmic Worlds. Are you free Friday (7/10) morning, or Monday (7/13) 11am–1pm ET? Send whichever works and I'll lock it in this time.
+It would be great to jump on a call and learn more about Kosmic Worlds. Are you available Friday (7/10) from 9am–12pm ET or Monday (7/13) from 11am–1pm ET? Let me know what works and I'll send an invite.
 
 Best,
 John

@@ -18,7 +18,9 @@ Drafted the reply in your voice; staged, not sent. The calendar invite itself is
 ```
 Hi Shachar,
 
-Great — glad that works. We'll send the group calendar invite shortly. Looking forward to continuing the Tevel conversation.
+Thanks for your patience here. It would be great to connect and learn more about the engagement with Tevel. That time works well — I'll send a calendar invite over now.
+
+Looking forward to it!
 
 Best,
 John
