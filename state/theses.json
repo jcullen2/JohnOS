@@ -1,0 +1,12 @@
+{
+  "schema": "thesis-signals@1",
+  "updated": null,
+  "theses": {
+    "reindustrialization": {"signals": 0, "threshold": 10, "last_signal": null},
+    "maritime-autonomy": {"signals": 0, "threshold": 8, "last_signal": null},
+    "lunar-infrastructure": {"signals": 0, "threshold": 8, "last_signal": null},
+    "robotics-data": {"signals": 0, "threshold": 8, "last_signal": null},
+    "defense-dual-use": {"signals": 0, "threshold": 8, "last_signal": null},
+    "nurse-workforce": {"signals": 0, "threshold": 8, "last_signal": null}
+  }
+}
