@@ -7,8 +7,9 @@ RAN. DECIDE is ranked (thresholds.md) and capped at 5; overflow is counted, not
 shown. Pure Python — no LLM call, so the 6:30 job is deterministic and free.
 
 Usage:
-    python3 engine/render_daily.py [--date YYYY-MM-DD]
+    python3 engine/render_daily.py [--date YYYY-MM-DD] [--queue DIR] [--out DIR]
 """
+import argparse
 import html
 import re
 import sys
@@ -176,18 +177,24 @@ def render_html(day, buckets):
     return "".join(out)
 
 
+def render(day, queue_dir, out_dir):
+    buckets = _by_type(load_open(queue_dir))
+    out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / f"{day}.html").write_text(render_html(day, buckets), encoding="utf-8")
+    (out_dir / f"{day}.md").write_text(render_md(day, buckets), encoding="utf-8")
+    return buckets
+
+
 def main(argv):
-    day = date.today().isoformat()
-    if "--date" in argv:
-        day = argv[argv.index("--date") + 1]
-        datetime.strptime(day, "%Y-%m-%d")  # validate
-    items = load_open(QUEUE)
-    buckets = _by_type(items)
-    DAILY.mkdir(exist_ok=True)
-    (DAILY / f"{day}.html").write_text(render_html(day, buckets), encoding="utf-8")
-    (DAILY / f"{day}.md").write_text(render_md(day, buckets), encoding="utf-8")
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--date", default=date.today().isoformat())
+    ap.add_argument("--queue", type=Path, default=QUEUE)
+    ap.add_argument("--out", type=Path, default=DAILY)
+    a = ap.parse_args(argv[1:])
+    datetime.strptime(a.date, "%Y-%m-%d")  # validate
+    buckets = render(a.date, a.queue, a.out)
     counts = " ".join(f"{t}:{len(buckets[t])}" for t in ORDER)
-    print(f"rendered daily/{day}.html + .md  ({counts})")
+    print(f"rendered {a.out}/{a.date}.html + .md  ({counts})")
     return 0
 
 
