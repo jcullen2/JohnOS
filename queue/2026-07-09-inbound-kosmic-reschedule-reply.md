@@ -26,6 +26,8 @@ Best,
 John
 ```
 
+**Calendar checked, free** — via Google Calendar MCP: Fri 7/10 AM and Mon 7/13 11am–1pm ET are both open (only events this window: 7/11, 7/14 PM, 7/15 HOLD).
+
 ## Recommendation
 Send. He's a strong thesis fit and has earned a firm time.
 

@@ -24,6 +24,8 @@ Best,
 John
 ```
 
+**Calendar checked, free** — via Google Calendar MCP: Thu 7/16 9:30 AM is open (no events on 7/16).
+
 ## Recommendation
 Send. Simple confirm.
 

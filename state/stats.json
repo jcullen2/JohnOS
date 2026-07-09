@@ -1,0 +1,78 @@
+{
+  "generated": "2026-07-09",
+  "queue": {
+    "decide_open": 3,
+    "decide_oldest_age_days": 0,
+    "approve_staged": 4,
+    "due_today": 0,
+    "total_open": 23,
+    "by_producer": {
+      "inbound": 10,
+      "intake": 4,
+      "news": 4,
+      "policy": 4,
+      "sourcing": 1
+    }
+  },
+  "producers": {
+    "reporting": [
+      "inbound",
+      "intake",
+      "news",
+      "policy",
+      "sourcing"
+    ],
+    "silent": [
+      "finance",
+      "learn",
+      "leisure",
+      "network",
+      "retro",
+      "sports",
+      "tasks",
+      "thesis"
+    ],
+    "n": 5,
+    "m": 13
+  },
+  "throughput": {
+    "resolved_last_7d": 0,
+    "archive_total": 1
+  },
+  "sourcing_funnel": {
+    "this_week": 2,
+    "last_week": 0
+  },
+  "thesis_counters": {
+    "reindustrialization": {
+      "signals": 4,
+      "threshold": 10,
+      "crossed": false
+    },
+    "maritime-autonomy": {
+      "signals": 4,
+      "threshold": 8,
+      "crossed": false
+    },
+    "lunar-infrastructure": {
+      "signals": 0,
+      "threshold": 8,
+      "crossed": false
+    },
+    "robotics-data": {
+      "signals": 1,
+      "threshold": 8,
+      "crossed": false
+    },
+    "defense-dual-use": {
+      "signals": 3,
+      "threshold": 8,
+      "crossed": false
+    },
+    "nurse-workforce": {
+      "signals": 1,
+      "threshold": 8,
+      "crossed": false
+    }
+  }
+}
