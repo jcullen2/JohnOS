@@ -1,0 +1,32 @@
+producer: sourcing
+runbook: engine/producers/sourcing.md
+cadence: "nightly 4:15; Mon rank 6:45"
+autonomy_level: L1
+writes: [KNOW, DECIDE, APPROVE]
+triage_model: claude-haiku-4-5
+
+sources:
+  strictlyvc:                              # /lessons/strictlyvc.md — sitemap, not email
+    sitemap: https://newsletter.strictlyvc.com/sitemap.xml
+    parse: walk h2/h3/p against known funding-section headings
+  yc_batches: https://www.ycombinator.com/companies   # filter industrial/hard-tech
+  founder_departures: linkedin/press signals for senior departures at incumbents
+  intake_routed: queue KNOWs tagged sourcing (from the intake producer)
+
+dedup:
+  via: affinity_mcp                        # /lessons/affinity.md — dedup BEFORE surfacing
+  tool: search_companies_top_matches
+  taxonomy: reuse existing sector taxonomy (media-brand project)
+
+theses_file: context/theses.md             # only surface thesis-aligned candidates
+signal_state: state/theses.json            # bump counters via engine/signals.py
+
+caps:
+  nightly_signals: 8                       # KNOW signals per night, ranked, rest held
+  monday_decide: 5                         # ranked top-5 DECIDE, each with rec + change-condition
+
+rules:
+  - Dedup against Affinity before any candidate is surfaced as net-new.
+  - Nightly = KNOW signals only. Monday 6:45 = the ranked top-5 DECIDE.
+  - Affinity adds stage as APPROVE (exact list/fields), never written live.
+  - Bump the matching thesis counter for each real signal.

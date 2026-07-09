@@ -1,0 +1,31 @@
+producer: news
+runbook: engine/producers/news.md
+cadence: "nightly 4:30"
+autonomy_level: L0
+writes: [KNOW]                             # KNOW only, hard caps
+triage_model: claude-haiku-4-5
+
+sections:                                  # each capped; overflow held, never expanded
+  portfolio:
+    cap: 3
+    watchlist: [Motmot, Flyby Robotics, MimoLabs, Tevel, Monogoto, Buncha]  # expand from /state
+  competitors:
+    cap: 3
+    watchlist: []                          # name direct competitors of active deals; fill in week 1
+  market_color:
+    cap: 3
+    topics: [industrial tech, mobility, defense/dual-use, robotics, reindustrialization]
+  detroit_business:
+    cap: 2
+    topics: [Detroit business, Michigan economic development, Bedrock, Gilbert]
+  detroit_sports:
+    cap: 2
+    topics: [Lions, Pistons, Tigers, Red Wings results]
+
+signal_state: state/theses.json            # market_color items that are thesis evidence bump counters
+
+rules:
+  - KNOW only. No DECIDE, no drafts — awareness surface.
+  - ≤3 sentences per item, link out for depth.
+  - Respect section caps; hold overflow, note the count.
+  - Detroit sports = results/scores only; analysis lives in the sports producer.

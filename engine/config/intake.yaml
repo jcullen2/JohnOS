@@ -1,0 +1,28 @@
+producer: intake
+runbook: engine/producers/intake.md
+cadence: "nightly 4:00"
+autonomy_level: L2            # routes/files at L2; people-map updates staged at L1
+writes: [RAN, KNOW, DECIDE, APPROVE]
+triage_model: claude-haiku-4-5
+
+sources:
+  drop_zone: intake/                       # files dropped here
+  email_route: 'subject starts with "intake:"'   # inbound routes these over
+
+# Where each classification lands.
+routes:
+  sourcing_candidate: sourcing             # hand to sourcing (dedup vs Affinity there)
+  thesis_signal: state/research/<thesis>/  # file the artifact + bump the counter
+  people_map: context/people.md            # staged L1 diff, never applied silently
+  priority_relevant: DECIDE                # if it touches /context/priorities.md
+
+theses_file: context/theses.md             # the classification target list
+research_dir: state/research               # one subdir per thesis
+signal_state: state/theses.json            # counters bumped via engine/signals.py
+
+rules:
+  - Never silently drop. Unfetchable link (X/Twitter, paywall) → RAN receipt asks
+    JC to paste the text; the item waits, it is not discarded.
+  - Every processed drop gets exactly one RAN receipt (what it was, where it went).
+  - Remove the source file from /intake only after the receipt is written.
+  - People-map updates stage as an L1 diff in the receipt — never edit people.md live.

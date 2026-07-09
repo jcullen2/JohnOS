@@ -14,6 +14,13 @@ migration** (seed list) fills them:
 | `wealth-model.json`      | Excel model **inputs** (not workbook) | finance        |
 | `assembly-pipeline.json` | Affinity snapshot                     | sourcing       |
 
+## Thesis research + signal counters
+- `theses.json` — signal counters per active thesis (bumped via `engine/signals.py`
+  by sourcing / news / policy / intake). When a counter reaches its threshold the
+  thesis producer fires a synthesis-session DECIDE.
+- `research/<thesis>/` — one subdir per thesis; the intake producer files artifacts
+  (evidence) here when it classifies a drop as a thesis signal.
+
 Rules:
 - Structured only — no prose trackers. A producer reads/writes its own files.
 - Commit writes with a structured message (`producer: tasks | +4 tasks`).
