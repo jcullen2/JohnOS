@@ -1,12 +1,41 @@
 {
   "schema": "thesis-signals@1",
-  "updated": null,
+  "updated": "2026-07-09",
   "theses": {
-    "reindustrialization": {"signals": 0, "threshold": 10, "last_signal": null},
-    "maritime-autonomy": {"signals": 0, "threshold": 8, "last_signal": null},
-    "lunar-infrastructure": {"signals": 0, "threshold": 8, "last_signal": null},
-    "robotics-data": {"signals": 0, "threshold": 8, "last_signal": null},
-    "defense-dual-use": {"signals": 0, "threshold": 8, "last_signal": null},
-    "nurse-workforce": {"signals": 0, "threshold": 8, "last_signal": null}
+    "reindustrialization": {
+      "signals": 4,
+      "threshold": 10,
+      "last_signal": "2026-07-09",
+      "last_source": "sourcing"
+    },
+    "maritime-autonomy": {
+      "signals": 4,
+      "threshold": 8,
+      "last_signal": "2026-07-09",
+      "last_source": "sourcing"
+    },
+    "lunar-infrastructure": {
+      "signals": 0,
+      "threshold": 8,
+      "last_signal": null
+    },
+    "robotics-data": {
+      "signals": 1,
+      "threshold": 8,
+      "last_signal": "2026-07-09",
+      "last_source": "sourcing"
+    },
+    "defense-dual-use": {
+      "signals": 3,
+      "threshold": 8,
+      "last_signal": "2026-07-09",
+      "last_source": "sourcing"
+    },
+    "nurse-workforce": {
+      "signals": 1,
+      "threshold": 8,
+      "last_signal": "2026-07-09",
+      "last_source": "sourcing"
+    }
   }
 }
