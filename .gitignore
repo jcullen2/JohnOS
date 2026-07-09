@@ -1,0 +1,10 @@
+# Python
+__pycache__/
+*.pyc
+
+# launchd logs
+engine/schedule/*.log
+
+# Local secrets / connector creds — never commit
+.env
+*.local
