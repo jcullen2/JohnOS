@@ -13,7 +13,7 @@ One markdown file per open decision request:
 
 | Field                     | Required | Values / rule                                              |
 |---------------------------|----------|------------------------------------------------------------|
-| `producer`                | yes      | inbound, sourcing, thesis, tasks, lp, finance, sports, political, education, fun |
+| `producer`                | yes      | inbound, intake, sourcing, news, policy, thesis, tasks, network, finance, sports, learn, leisure, retro |
 | `type`                    | yes      | DECIDE, APPROVE, KNOW, RAN                                  |
 | `title`                   | yes      | one line                                                   |
 | `consequence_if_ignored`  | yes      | one line — drives DECIDE ranking                           |

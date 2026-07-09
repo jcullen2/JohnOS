@@ -77,16 +77,18 @@ Each producer is a script (or Cowork scheduled task) with: a config file in `/en
 
 | Producer | Cadence | Level (start) | Writes | Notes |
 |---|---|---|---|---|
-| inbound | 6:00 / 12:00 / 17:00 | L1 | APPROVE (drafts, archive batches), DECIDE (judgment threads), KNOW | Superhuman MCP. Fetch by split, not bulk. Sending is permanently capped at L1. |
-| sourcing | nightly scan; Mon rank | L1 | KNOW (signals), DECIDE (weekly top-5 with rec), APPROVE (Affinity adds) | StrictlyVC via sitemap scrape (not email bodies); YC batches; founder-departure signals. Dedup against Affinity before surfacing. |
-| thesis | nightly | L0 | KNOW; DECIDE when a thesis crosses signal threshold ("time for a synthesis session") | Signal counts per active thesis tracked in /state. Synthesis itself is never scheduled — it's a triggered chat/Cowork session. |
-| tasks | nightly sweep | L2 | /state/tasks.json; DECIDE (top-3 for the day) | Extracts commitments from email, calendar, and chat rulings. Requires substrate seeding in week 1. |
-| lp | weekly enrichment; decay alerts | L0/L1 | DECIDE (who to touch + why), APPROVE (staged drafts) | Clay/PitchBook enrichment; Affinity last-touch decay (>60d on active targets). Outbound LP comms permanently capped at L1. |
+| inbound | 6:00 / 12:00 / 17:00 | L1 | APPROVE (drafts, archive batches), DECIDE (judgment threads), KNOW | Superhuman MCP. Fetch by split, not bulk. Sending is permanently capped at L1. Routes `intake:` emails to intake. |
+| intake | nightly | L2 | RAN (receipts); routes to sourcing / thesis-signal / people-map / DECIDE | /os/intake drop zone + `intake:` emails. Fetch/extract → classify vs theses → route. Never silently drops (X/Twitter blocked → receipt asks for paste). |
+| sourcing | nightly scan; Mon rank | L1 | KNOW (signals), DECIDE (weekly top-5 with rec), APPROVE (Affinity adds) | StrictlyVC via sitemap scrape (not email bodies); YC batches; founder-departure signals; intake-routed candidates. Dedup against Affinity before surfacing. |
+| news | nightly | L0 | KNOW only, capped | Portfolio + named competitors + industrial-tech market color + Detroit business + Detroit sports results. |
+| thesis | counter-driven | L0 | DECIDE when a thesis crosses signal threshold ("time for a synthesis session") | Signal counts (in /state) incremented by sourcing/news/policy/intake. Synthesis itself is never scheduled — it's a triggered chat/Cowork session. |
+| tasks | nightly sweep | L2 | /state/tasks.json; DECIDE (top-3 for the day) | Extracts commitments from email, calendar, and chat rulings. |
+| network | weekly enrichment; decay alerts | L0/L1 | DECIDE (who to touch + why), APPROVE (staged drafts) | Clay/PitchBook enrichment; Affinity last-touch decay (>60d on active targets). Outbound never automates; capped at L1. |
 | finance | monthly (25th) + threshold alerts | L0 permanent | DECIDE (max one action/month), KNOW (variance narrative) | Refreshes wealth-model inputs. Instrumentation only: no trades, no transfers, ever, at any level. |
-| sports | in-season, event-driven | L0 | KNOW (fantasy card Sun AM, betting slate framed as thesis not picks, Detroit results) | Discussion stays in chat by design. |
-| political | nightly | L0 | KNOW | Cross-spectrum sources forced in config; "what happened + why each side cares." MI/Detroit policy sub-signal. |
-| education | weekly | L0 | KNOW (one concept, chosen by live deal flow) | Learning session itself happens in chat, on JC's initiation. |
-| fun | Thursday | L0 | KNOW (one Detroit event, one date idea, one golf window vs weather) | Suggestions, never plans. |
+| sports | in-season, event-driven | L0 | KNOW (fantasy card Sun AM, betting slate framed as analysis not picks, Detroit results) | Discussion stays in chat by design. |
+| policy | nightly | L0 | KNOW only, capped per ring | Three rings: Detroit/MI civic; national policy on active theses (defense, reshoring/tariffs, energy, immigration incl. EB-3); national politics cross-spectrum (forced sources), "what happened + why each side cares." |
+| learn | weekly | L0 | KNOW (one concept, chosen by live deal flow) | Learning session itself happens in chat, on JC's initiation. |
+| leisure | Thursday | L0 | KNOW (one Detroit event, one date idea, one golf window vs weather) | Suggestions, never plans. |
 
 **Meta-producer — the Friday retro (Cowork, Fridays 16:00, L1):**
 Reviews the week: DECIDE overrides (recommendation-quality failures), unactioned KNOW items (cut sources), silent producers (kill or fix), chat corrections not yet in /lessons. Output: a staged change-list PR to /context and /engine configs. This producer is not optional; without it the system rots in ~6 weeks.
@@ -123,9 +125,9 @@ Reviews the week: DECIDE overrides (recommendation-quality failures), unactioned
 
 1. **Session 1 (Code):** repo skeleton, seed /context from CONTEXT_SEED.md, commit this spec, build the Daily renderer against fixture queue items, wire launchd.
 2. **Session 2:** inbound producer (highest ROI; workflow already proven — port it, don't reinvent).
-3. **Session 3:** sourcing producer (port the sitemap pipeline from the Brief engine) + tasks substrate.
+3. **Session 3:** sourcing producer (port the sitemap pipeline from the legacy digest) + tasks substrate.
 4. **Week 2:** Friday retro goes live and governs everything after. Add remaining producers one per week, retro-gated.
-5. The legacy Brush Park Brief keeps running until sourcing + political + sports producers cover it; then retire it. Nothing is retired before its replacement ships.
+5. The legacy digest keeps running until sourcing + news + policy producers cover it; then retire it. Nothing is retired before its replacement ships.
 
 ---
 

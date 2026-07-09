@@ -5,12 +5,15 @@ Schema: engine/schema.md. Constitution: FOUNDING_SPEC.md §4.
 """
 from __future__ import annotations
 
+import hashlib
 import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
-PRODUCERS = {"inbound", "sourcing", "thesis", "tasks", "lp", "finance",
-             "sports", "political", "education", "fun"}
+# Producers named for what they do. `thesis` is a counter-driven mechanism, not a
+# scheduled fetch — it emits only the synthesis-session DECIDE (see SPEC_QUESTIONS).
+PRODUCERS = {"inbound", "intake", "sourcing", "news", "policy", "thesis",
+             "tasks", "network", "finance", "sports", "learn", "leisure", "retro"}
 TYPES = {"DECIDE", "APPROVE", "KNOW", "RAN"}
 STATUSES = {"open", "resolved", "expired"}
 LEVELS = {"L0", "L1", "L2", "L3"}
@@ -49,6 +52,28 @@ class Item:
     @property
     def severity(self) -> str:
         return str(self.meta.get("severity") or "medium").lower()
+
+    @property
+    def id(self) -> str:
+        """Stable, human-readable id derived from the (stable) filename:
+        <PRD>-<4hex>, e.g. INB-3a9f. Same file → same id across every render."""
+        h = hashlib.md5(self.path.name.encode()).hexdigest()[:4]
+        return f"{(self.producer[:3] or 'itm').upper()}-{h}"
+
+    @property
+    def changed_at(self) -> float:
+        """Filesystem mtime — when the item was last created or edited."""
+        try:
+            return self.path.stat().st_mtime
+        except OSError:
+            return 0.0
+
+    def crosses_urgency(self) -> bool:
+        """thresholds.md: a mid-day delta-push item — DECIDE/APPROVE, high
+        severity, deadline today or past."""
+        from datetime import date
+        return (self.type in ("DECIDE", "APPROVE") and self.severity == "high"
+                and self.deadline is not None and self.deadline <= date.today().isoformat())
 
     def section(self, head: str) -> str:
         return self.sections.get(head, "").strip()

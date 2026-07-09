@@ -1,4 +1,4 @@
-# JohnOS
+# The OS
 
 Personal operating system for JC. Automates execution so JC's time concentrates on
 judgment, approval, and upstream value creation. Every automated process terminates

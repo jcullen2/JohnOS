@@ -1,5 +1,5 @@
 ---
-producer: political
+producer: policy
 type: KNOW
 title: New federal reshoring credit clears committee — reindustrialization tailwind
 consequence_if_ignored: Low; context for the core thesis and Assembly framing

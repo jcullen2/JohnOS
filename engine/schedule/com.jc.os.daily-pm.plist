@@ -4,15 +4,17 @@
 <plist version="1.0">
 <dict>
   <key>Label</key>
-  <string>com.jc.os.daily</string>
+  <string>com.jc.os.daily-pm</string>
 
-  <!-- Morning Daily at 7:00, after the 4:00–6:45 producer batch window has
-       written the day's queue items. Opens in the browser and emails JC's own
-       address (the L2 carve-out). SMTP config via env; see the schedule README. -->
+  <!-- Evening edition at 17:00: a delta of items created/changed since the 7:00
+       morning render, plus anything that crossed the urgency threshold. Opens
+       and emails like the morning job. Writes /daily/<date>-pm.{html,md}. -->
   <key>ProgramArguments</key>
   <array>
     <string>/usr/bin/python3</string>
     <string>__OS_ROOT__/engine/render_daily.py</string>
+    <string>--since</string>
+    <string>07:00</string>
     <string>--open</string>
     <string>--email</string>
     <string>johndcullen2@gmail.com</string>
@@ -20,7 +22,7 @@
 
   <key>StartCalendarInterval</key>
   <dict>
-    <key>Hour</key><integer>7</integer>
+    <key>Hour</key><integer>17</integer>
     <key>Minute</key><integer>0</integer>
   </dict>
 

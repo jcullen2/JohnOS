@@ -1,6 +1,21 @@
-# Spec questions & Session-1 inferences
-*Flagged rather than guessed (kickoff boundary). Resolve in the first Friday retro
-or inline; each is low-stakes and reversible.*
+# Spec questions & inferences
+*Flagged rather than guessed. Resolve in the first Friday retro or inline; each is
+low-stakes and reversible.*
+
+## 6. `thesis` kept as a producer id (Phase 0 list omitted it)
+The naming sweep's producer list was inbound, intake, sourcing, news, policy,
+tasks, network, finance, sports, learn, leisure, retro — no `thesis`. But spec §5
+still defines the thesis synthesis-session DECIDE, and it needs an attribution
+home. **Decision:** kept `thesis` as a valid producer id used only for that
+counter-driven DECIDE (no scheduled fetch of its own). Not an autonomy question.
+**Confirm:** keep `thesis` as the emitter, or attribute the DECIDE to whichever
+fetcher trips the counter?
+
+## 7. Daily email = the one sending carve-out
+Phase 1 grants the `daily` renderer an L2 exception to email JC's own address.
+Encoded in `/context/autonomy.md` as a `daily` row + an explicit note on the
+permanent send cap. No other producer may send. Flagging because it is the single
+exception to standing-rule #1.
 
 ## 1. DECIDE ranking needs a signal the schema didn't carry — added `severity`
 Spec §4 says DECIDE overflow is "ranked by `consequence_if_ignored`," but that field

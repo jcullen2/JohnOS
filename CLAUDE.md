@@ -1,4 +1,4 @@
-# JohnOS — repo guide for Claude
+# The OS — repo guide for Claude
 *Personal operating system for JC. The constitution is `FOUNDING_SPEC.md`; it
 wins over code until amended by the Friday retro.*
 

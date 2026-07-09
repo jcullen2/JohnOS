@@ -10,7 +10,7 @@ severity: medium
 ---
 
 ## What happened
-Yachting Ventures (Gabbi Richardson) confirmed logistics for the Monaco Marina Rendezvous, 20–21 Sept. This is the jury-seat access mechanism for the LP trip and the $1M pipeline target. No action needed now; the lp producer should build the meeting slate against it.
+Yachting Ventures (Gabbi Richardson) confirmed logistics for the Monaco Marina Rendezvous, 20–21 Sept. This is the jury-seat access mechanism for the LP trip and the $1M pipeline target. No action needed now; the network producer should build the meeting slate against it.
 
 ## What I did about it
 Logged as context for the Monaco priority.

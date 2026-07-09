@@ -3,7 +3,7 @@ runbook: engine/producers/inbound.md
 cadence: "6:00,12:00,17:00"      # 6:00 feeds the Daily; 12:00 + 17:00 render deltas
 autonomy_level: L1               # cap; sending is permanently L1 (never promotes)
 writes: [APPROVE, DECIDE, KNOW]
-triage_model: claude-haiku-4-5   # cheap first-pass classify (Brief-engine pattern)
+triage_model: claude-haiku-4-5   # cheap first-pass classify (digest pattern)
 
 # Fetch by split, never bulk (/lessons/superhuman.md). Order = triage priority.
 splits:

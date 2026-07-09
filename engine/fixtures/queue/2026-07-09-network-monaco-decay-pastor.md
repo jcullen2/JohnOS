@@ -1,5 +1,5 @@
 ---
-producer: lp
+producer: network
 type: DECIDE
 title: Gildo Pastor contact has decayed past 60 days ahead of Monaco
 consequence_if_ignored: Cold anchor moonshot going into the Sept trip; hardest LP to re-warm on short notice

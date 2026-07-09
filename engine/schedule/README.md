@@ -1,7 +1,7 @@
 # Schedules (launchd)
-*Spec §8: producers run headless in the 4:00–6:15 batch window so the Daily is
-ready at 6:30. Claude Code / launchd owns `/engine`; Cowork owns judgment-bearing
-passes.*
+*Spec §8: producers run headless in the pre-dawn batch window so the Daily is
+ready at 7:00. Claude Code / launchd owns `/engine`; Cowork owns judgment-bearing
+passes (inbound triage, Monday sourcing rank, Friday retro).*
 
 ## Install
 ```bash
@@ -10,35 +10,48 @@ launchctl list | grep com.jc.os      # verify
 ```
 `install.sh` substitutes `__OS_ROOT__` with this repo's absolute path into
 `~/Library/LaunchAgents/` and loads each job. Re-run after editing any plist.
+**Nothing is enabled until JC confirms at GATE 3** — until then, run producers by
+hand and inspect the queue.
 
-## The Daily (`com.jc.os.daily.plist`)
-Runs `render_daily.py` at **6:30** daily. Reads open `/queue` items, writes
-`/daily/<date>.html` + `.md`. Pure Python, no network, no LLM — reliable and free.
-Logs: `engine/schedule/daily.{out,err}.log` (gitignored).
+## The Daily
+| Job | Time | Command | Output |
+|---|---|---|---|
+| `com.jc.os.daily` | **7:00** | `render_daily.py --open --email …` | `/daily/<date>.{html,md}` (full) |
+| `com.jc.os.daily-pm` | **17:00** | `render_daily.py --since 07:00 --open --email …` | `/daily/<date>-pm.{html,md}` (delta) |
 
-## Adding a producer job (Session 2+)
-Producers write queue items **before 6:15** so the Daily sees them. One plist per
-producer; stagger start times inside the window so they don't contend.
+The evening edition shows only items created/changed since 07:00 plus anything
+that crossed the urgency threshold (`/context/thresholds.md`). Both open in the
+browser and email JC's **own** address — the one sending carve-out (L2,
+`/context/autonomy.md`); the renderer emails no one else.
 
-1. Copy `com.jc.os.daily.plist` → `com.jc.os.<producer>.plist`.
-2. Point `ProgramArguments` at the producer entrypoint
-   (e.g. `engine/producers/inbound.py`).
-3. Set `StartCalendarInterval` inside **4:00–6:15**. Suggested cadence:
+**Email delivery** uses SMTP via env vars, read at run time (never committed):
+`SMTP_HOST`, `SMTP_PORT` (587), `SMTP_USER`, `SMTP_PASS`, `DAILY_FROM`. If
+`SMTP_HOST` is unset the render still succeeds and logs `[email skipped]`.
 
-   | Producer  | Time(s)                | Notes                                  |
-   |-----------|------------------------|----------------------------------------|
-   | inbound   | 6:00 (+ 12:00, 17:00)  | intraday passes render deltas too      |
-   | sourcing  | 4:15 nightly; Mon rank | Monday adds the ranked top-5 DECIDE     |
-   | thesis    | 4:30                   | signal counts → /state                  |
-   | tasks     | 4:45                   | nightly sweep → /state/tasks.json       |
-   | lp        | 5:00 (weekly)          | decay alerts                            |
-   | finance   | 5:15 (25th + alerts)   | instrumentation only                    |
-   | political | 5:30                   | cross-spectrum                          |
-   | sports    | in-season, event-driven| KNOW only                               |
-   | fun       | Thu 5:45               | suggestions                             |
+## Producer batch window (4:00–6:45)
+Producers write queue items **before 6:45** so the 7:00 Daily sees them. One plist
+per producer; staggered so they don't contend. A producer that fails writes what
+it has and the renderer just notes it silent — one failure never blocks the Daily.
 
-4. `bash engine/schedule/install.sh` to load it.
-5. A producer that fails must not block the Daily — the renderer just notes it silent.
+| Producer | Schedule | Level | Notes |
+|---|---|---|---|
+| intake | nightly 4:00 | L2 | drains `/os/intake` + `intake:` emails; routes + RAN receipts |
+| sourcing | nightly 4:15; Mon 6:45 rank | L1 | StrictlyVC sitemap, YC, founder-departures; Mon adds top-5 DECIDE |
+| news | nightly 4:30 | L0 | portfolio/competitors/market/Detroit; KNOW, capped |
+| policy | nightly 4:45 | L0 | three rings; KNOW, capped per ring |
+| tasks | nightly 5:00 | L2 | email+calendar sweep → tasks.json; top-3 DECIDE |
+| network | Mon 5:15 | L0/L1 | Affinity decay >60d; DECIDE + staged drafts (never auto-sends) |
+| finance | 25th 5:30 + alerts | L0 🔒 | model-input refresh; ≤1 DECIDE/mo; nothing executes |
+| learn | Wed 5:45 | L0 | one concept from live deal flow; KNOW |
+| leisure | Thu 5:45 | L0 | Detroit event / date idea / golf window; KNOW |
+| sports | in-season, event-driven | L0 | fantasy Sun AM, slates as analysis, Detroit results; KNOW |
+| thesis | 6:15 (after fetchers) | L0 | rolls up signal counters; synthesis DECIDE on threshold |
 
-The **Friday retro** (Cowork, 16:00) is not a launchd job — it runs in Cowork
-pointed at `/os`. See spec §5.
+## Adding a producer job
+1. Copy a producer plist, set `Label` `com.jc.os.<producer>`.
+2. Point `ProgramArguments` at its entrypoint (runbook via Cowork, or a script).
+3. Set `StartCalendarInterval` inside **4:00–6:45**.
+4. `bash engine/schedule/install.sh`.
+
+The **Friday retro** (Cowork, 17:00, L1) is not a launchd job — it runs in Cowork
+pointed at `/os`. See spec §5 and `engine/producers/retro.md`.
