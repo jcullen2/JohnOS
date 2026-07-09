@@ -1,0 +1,25 @@
+producer: inbound
+runbook: engine/producers/inbound.md
+cadence: "6:00,12:00,17:00"      # 6:00 feeds the Daily; 12:00 + 17:00 render deltas
+autonomy_level: L1               # cap; sending is permanently L1 (never promotes)
+writes: [APPROVE, DECIDE, KNOW]
+triage_model: claude-haiku-4-5   # cheap first-pass classify (Brief-engine pattern)
+
+# Fetch by split, never bulk (/lessons/superhuman.md). Order = triage priority.
+splits:
+  - Important        # high-priority real people → most DECIDE/APPROVE
+  - Pitch            # inbound founders → KNOW, occasional DECIDE (thesis fit)
+  - Contact          # contact@assemblyventures.com → often APPROVE (routing)
+  - Other            # newsletters/notifications → archive-batch APPROVE, rare KNOW
+
+limits:
+  threads_per_split: 25          # list_threads page; snippets are enough to triage
+  full_reads_per_run: 8          # get_thread only where a draft/judgment needs it
+  decide_cap_hint: 5             # renderer enforces; producer shouldn't flood
+
+rules:
+  - Never send, archive, label, or trash. Read-only + stage drafts in queue items.
+  - query_email_and_calendar truncates bodies — do not use it for reading.
+  - Do not get_thread newsletters/Other in bulk (~15K-token HTML bodies).
+  - Draft in JC's voice (concise, warm-direct, zero filler); stage verbatim only.
+  - Dedup: one queue item per thread; skip threads already resolved in /archive.
