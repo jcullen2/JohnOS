@@ -244,7 +244,8 @@ def render(day, queue_dir=ROOT / "queue"):
     buckets = _collect(queue_dir)
     for it in buckets["APPROVE"]:
         it.calnote_text = _calnote(it)
-    p = ["<style>", CSS, "</style>", '<div class="os"><div class="wrap">',
+    p = [f"<title>The Daily — {E(day)}</title>", "<style>", CSS, "</style>",
+         '<div class="os"><div class="wrap">',
          f'<div class="head"><h1>The Daily</h1>'
          f'<span class="sub">{day} · morning · clears in ≤10 min</span>'
          f'<span class="noscnd">sends nothing · drafts stage only</span></div>',
